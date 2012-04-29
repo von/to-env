@@ -30,5 +30,3 @@ function to-env()
 	let count=count+1
     done <<< "$output"
 }
-
-alias downloads='to_env "ls -1t ~/Downloads/* | head"'
