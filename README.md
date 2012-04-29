@@ -5,6 +5,13 @@ Run a shell command and save results to variables for easy access.
 
 Home page: [https://github.com/von/to-env](https://github.com/von/to-env)
 
+usage: *to-env [-p prefix] command*
+
+Captures each line of output from command into a shell variable,
+starting with *e1* for the first line and incrementing the number for
+each subsequent line. The *-p* option allows you to change the
+variable prefix from *e* to one of your choosing.
+
 A simple example:
 
     $ source to-env.sh 
