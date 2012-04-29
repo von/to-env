@@ -13,6 +13,7 @@
 function to-env()
 {
     local prefix="e"
+    local usage="Usage: to-env [<option>] <command>"
     local OPTIND  # Not just a good idea, required for proper bahavior
     while getopts ":p:" opt "$@" ; do
 	case $opt in
@@ -21,6 +22,11 @@ function to-env()
 	esac
     done
     shift $(($OPTIND - 1))
+    if test $# -eq 0 ; then
+	echo "Missing command."
+	echo $usage
+	return 1
+    fi
     local output=`eval $@`
     local count=1
     while read -r line ; do
