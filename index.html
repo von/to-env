@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
+
+    <title>to-env by von</title>
+  </head>
+
+  <body>
+
+    <header>
+      <div class="container">
+        <h1>to-env</h1>
+        <h2>Run a shell command and capture output in variables for easy manipulation.</h2>
+
+        <section id="downloads">
+          <a href="https://github.com/von/to-env/zipball/master" class="btn">Download as .zip</a>
+          <a href="https://github.com/von/to-env/tarball/master" class="btn">Download as .tar.gz</a>
+          <a href="https://github.com/von/to-env" class="btn btn-github"><span class="icon"></span>View on GitHub</a>
+        </section>
+      </div>
+    </header>
+
+    <div class="container">
+      <section id="main_content">
+        <p>usage: <em>to-env [-p prefix] command</em></p>
+
+<p>Captures each line of output from command into a shell variable,
+starting with <em>e1</em> for the first line and incrementing the number for
+each subsequent line. The <em>-p</em> option allows you to change the
+variable prefix from <em>e</em> to one of your choosing.</p>
+
+<p>A simple example:</p>
+
+<pre><code>$ source to-env.sh 
+$ to-env "ls -1"
+[1] README.md
+[2] to-env.sh
+[3] to-env.sh~
+$ echo $e1
+README.md
+$ echo $e2
+to-env.sh
+</code></pre>
+
+<p>Use to-env to capture long pathnames and manipulate them easily:</p>
+
+<pre><code>$ to-env "ls -1t ~/Documents/Manuals/* | head -3"
+[1] /Users/von/Documents/Manuals/ODB2_Reader_Manual_RevA_E_Final_downloadable.pdf
+[2] /Users/von/Documents/Manuals/nexusone-userguide.pdf
+[3] /Users/von/Documents/Manuals/WiseOneBGERecipes.pdf
+$ cp $e2 /tmp
+$ ls -l /tmp/nexusone-userguide.pdf 
+-rw-r--r--  1 von  wheel   4.2M Apr 26 20:46 /tmp/nexusone-userguide.pdf
+</code></pre>
+
+<p>An example doing something besides 'ls' and the fact the command
+doesn't have to be quoted if it doesn't contain metacharacters:</p>
+
+<pre><code>$ to-env grep github to-env.sh
+[1] # Homepage: https://github.com/von/to-env
+$ echo $e1
+# Homepage: https://github.com/von/to-env   
+</code></pre>
+
+<p>Use <em>-p prefix</em> to change the prefix for the variables:</p>
+
+<pre><code>$ to-env -p foo ls -1
+[1] #README.md#
+[2] README.md
+[3] to-env.sh
+[4] to-env.sh~
+$ echo $foo2
+README.md
+</code></pre>
+
+<p>The inspiration for to-env came from
+<a href="https://github.com/ndbroadbent/scm_breeze">SCM Breeze</a>.</p>
+      </section>
+    </div>
+
+    
+  </body>
+</html>
