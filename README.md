@@ -34,7 +34,7 @@ Use to-env to capture long pathnames and manipulate them easily:
     $ ls -l /tmp/nexusone-userguide.pdf 
     -rw-r--r--  1 von  wheel   4.2M Apr 26 20:46 /tmp/nexusone-userguide.pdf
 
-An example doing something besides 'ls' and the fact the command
+An example showing something besides 'ls' and the fact the command
 doesn't have to be quoted if it doesn't contain metacharacters:
 
     $ to-env grep github to-env.sh
