@@ -28,6 +28,10 @@ function to-env()
 	return 1
     fi
     local output=`eval $@`
+    if test -z "${output}" ; then
+	echo "No output."
+	return 0
+    fi
     local count=1
     while read -r line ; do
 	local var=${prefix}${count}
