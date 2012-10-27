@@ -27,7 +27,7 @@ function to-env()
 	echo $usage
 	return 1
     fi
-    local output=`eval $@`
+    local output="$(eval $@)"
     if test -z "${output}" ; then
 	echo "No output."
 	return 0
