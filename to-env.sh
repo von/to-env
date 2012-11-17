@@ -13,7 +13,7 @@
 function to-env()
 {
     local prefix="e"
-    local usage="Usage: to-env [<option>] <command>"
+    local usage="Usage: to-env [-p <prefix>] <command>"
     local OPTIND  # Not just a good idea, required for proper bahavior
     while getopts ":p:" opt "$@" ; do
 	case $opt in
