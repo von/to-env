@@ -38,7 +38,7 @@ function to-env()
   local count=1
   while read -r line ; do
     local var=${prefix}${count}
-    eval "${var}='${line}'"
+    eval "${var}=${(q)line}"
     echo "\$${var}: ${line}"
     let count=count+1
   done <<< "$output"
