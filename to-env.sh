@@ -5,6 +5,8 @@
 # Run a command and assign each line of it's output to an environment
 # variable.
 #
+# If command returns non-zero, exit, returning the same status.
+#
 # Homepage: https://github.com/von/to-env
 #
 # Usage example:
@@ -29,7 +31,14 @@ function to-env()
     return 1
   fi
 
-  local output="$(eval $@)"
+  # Using 'local' here obscured $?
+  output="$(eval $@)"
+  local laststatus=$?
+
+  if test $laststatus -ne 0 ; then
+    return $laststatus
+  fi
+
   if test -z "${output}" ; then
     echo "No output."
     return 0
