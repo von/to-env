@@ -15,11 +15,13 @@
 function to-env()
 {
   local prefix="e"
-  local usage="Usage: to-env [-p <prefix>] <command>"
+  local field=""  # whole line
+  local usage="Usage: to-env [-p <prefix>] [-<field>] <command>"
   local OPTIND  # Not just a good idea, required for proper bahavior
-  while getopts ":p:" opt "$@" ; do
+  while getopts ":p:123456789" opt "$@" ; do
     case $opt in
       p) prefix=${OPTARG} ;;
+      1|2|3|4|5|6|7|8|9) field=${opt} ;;
       \?) echo "Invalid option: -$OPTARG" >&2 ;;
     esac
   done
@@ -47,8 +49,14 @@ function to-env()
   local count=1
   while read -r line ; do
     local var=${prefix}${count}
-    eval "${var}=${(q)line}"
-    echo "\$${var}: ${line}"
+    if test -n "${field}"; then
+      local value=$(echo ${line} | awk "{print \$${field}}")
+      eval "${var}=${value}"
+      echo "\$${var}: ${value}"
+    else
+      eval "${var}=${(q)line}"
+      echo "\$${var}: ${line}"
+    fi
     let count=count+1
   done <<< "$output"
 }
